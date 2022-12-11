@@ -61,13 +61,13 @@ class MainActivity : ComponentActivity() {
 
 @Composable
 fun TipTimeScreen() {
-        var amountInput by remember { mutableStateOf("") }
-    var tipInput by remember {mutableStateOf("")}
+    var amountInput by remember { mutableStateOf("") }
+    var tipInput by remember { mutableStateOf("") }
 
     val amount = amountInput.toDoubleOrNull() ?: 0.0
-    val tipPercent = tipInput.toDoubleOrNull()?: 0.0
+    val tipPercent = tipInput.toDoubleOrNull() ?: 0.0
 //    toDoubleOrNull() ?: 0.0 = passes the string value as a double or null if the string is not a valid string
-    val tip = calculateTip(amount,tipPercent)
+    val tip = calculateTip(amount, tipPercent)
 
     Column(
         modifier = Modifier.padding(32.dp),
@@ -84,7 +84,8 @@ fun TipTimeScreen() {
             value = amountInput,
             onValueChanged = { amountInput = it }
         )
-        EditNumberField(label = R.string.How_was_the_service, value = tipInput, onValueChanged ={} )
+        EditNumberField(label = R.string.How_was_the_service,
+            value = tipInput, onValueChanged = {tipInput = it})
 
         Spacer(Modifier.height(24.dp))
         Text(
@@ -102,7 +103,7 @@ fun EditNumberField(
     @StringRes label: Int,
     value: String,
     onValueChanged: (String) -> Unit,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
 ) {
     TextField(
         value = value,
@@ -121,7 +122,7 @@ fun EditNumberField(
  */
 private fun calculateTip(
     amount: Double,
-    tipPercent: Double
+    tipPercent: Double,
 ): String {
     val tip = tipPercent / 100 * amount
     return NumberFormat.getCurrencyInstance().format(tip)
